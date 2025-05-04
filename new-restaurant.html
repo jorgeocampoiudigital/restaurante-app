@@ -36,21 +36,21 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <form id="new-restaurant-form">
-                    <div class="mb-3">
-                        <label for="name" class="form-label">Nombre del Restaurante</label>
-                        <input type="text" class="form-control" id="name" required>
+                    <div class="input-group input-group-lg mb-3">
+                        <span class="input-group-text" id="inputGroup-sizing-lg">Nombre del Restaurante</span>
+                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" id="name" required>
                     </div>
-                    <div class="mb-3">
-                        <label for="description" class="form-label">Descripción</label>
-                        <textarea class="form-control" id="description" rows="3" required></textarea>
+                    <div class="input-group input-group-lg mb-3">
+                      <span class="input-group-text" id="inputGroup-sizing-lg">Descripción</span>
+                      <textarea type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" id="description" rows="3" required></textarea>
                     </div>
-                    <div class="mb-3">
-                        <label for="address" class="form-label">Dirección</label>
-                        <input type="text" class="form-control" id="address" required>
+                    <div class="input-group input-group-lg mb-3">
+                        <span class="input-group-text" id="inputGroup-sizing-lg">Dirección</span>
+                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" id="address" required>
                     </div>
-                    <div class="mb-3">
-                        <label for="image" class="form-label">Imagen (URL)</label>
-                        <input type="url" class="form-control" id="image" required>
+                    <div class="input-group input-group-lg mb-3">
+                        <span class="input-group-text" id="inputGroup-sizing-lg">Imagen (URL)</span>
+                        <input type="url" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" id="image" required>
                     </div>
                     <button type="submit" class="btn btn-primary">Guardar Restaurante</button>
                 </form>
