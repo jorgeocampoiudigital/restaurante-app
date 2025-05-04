@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Búsqueda por Nombre</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        #resultadoBusqueda {
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            padding: 15px;
+            display: none; 
+        }
+        #resultadoBusqueda img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="bg-cyan-200 text-black p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-bold">DIRECTORIO RESTAURANTES</h1>
+            <div class="space-x-4">
+                <a href="" class="hover:text-blue-600">Inicio</a>
+                <a href="" class="hover:text-green-600">Busqueda</a>
+                <a href="" class="hover:text-red-600">Nuevo</a>
+            </div>
+        </div>
+        <div class="mx-auto flex max-w-sm items-center gap-x-4 rounded-xl bg-white p-6 shadow-lg outline outline-black/5 dark:bg-slate-800 dark:shadow-none dark:-outline-offset-1 dark:outline-white/10">
+            <img class="size-12 shrink-0" src="restaurante.ico" alt="ChitChat Logo" />
+            <div>
+              <div class="text-xl font-medium text-black dark:text-white">FoodChat</div>
+              <p class="text-gray-500 dark:text-gray-400">Chatea con nosotros!</p>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mx-auto mt-8">
+        <h2 class="text-xl font-semibold mb-4">Buscar Restaurante por Nombre</h2>
+        <div class="flex items-center mb-4">
+            <input type="text" id="nombreBusqueda" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Ingrese el nombre del restaurante">
+            <button id="botonBuscar" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2 focus:outline-none focus:shadow-outline">Buscar</button>
+        </div>
+
+        <div id="resultadoBusqueda" class="mt-4 border p-4 rounded shadow-md">
+            <h2 class="text-xl font-semibold mb-2" id="nombreResultado"></h2>
+            <img id="imagenResultado" src="" alt="" class="mb-2">
+            <p id="descripcionResultado" class="mb-2"></p>
+            <p id="direccionResultado" class="mb-2"></p>
+            <p id="mensajeNoEncontrado" class="text-red-500" style="display: none;">No se encontró ningún restaurante con ese nombre.</p>
+            <button id="limpiarBusquedaNombre" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded mt-4">Limpiar Búsqueda</button>
+        </div>
+    </div>
+
+    <script>
+        const nombreBusquedaInput = document.getElementById('nombreBusqueda');
+        const botonBuscarBtn = document.getElementById('botonBuscar');
+        const resultadoBusquedaDiv = document.getElementById('resultadoBusqueda');
+        const nombreResultadoH2 = document.getElementById('nombreResultado');
+        const imagenResultadoImg = document.getElementById('imagenResultado');
+        const descripcionResultadoParrafo = document.getElementById('descripcionResultado');
+        const direccionResultadoParrafo = document.getElementById('direccionResultado');
+        const mensajeNoEncontradoParrafo = document.getElementById('mensajeNoEncontrado');
+        const limpiarBusquedaNombreBtn = document.getElementById('limpiarBusquedaNombre'); // Nueva referencia al botón
+
+        // Datos de los restaurantes
+        const restaurantesData = {
+            "italiano": {
+                nombre: "Restaurante Italiano",
+                imagen: "r5.jpeg",
+                descripcion: "Este restaurante se especializa en Pizzas, Lasagñas y otros tipos de pastas",
+                direccion: "Calle 4 sur # 56-37- Medellin-Colombia"
+            },
+            "colombiano": {
+                nombre: "Restaurante Colombiano",
+                imagen: "r1.jpg",
+                descripcion: "Este restaurante se especializa en comida tipica colombiana de todas las regiones nacionales",
+                direccion: "Calle 77 sur # 54-22 - Sabaneta-Colombia"
+            },
+            "fast food": {
+                nombre: "Restaurante Fast Food",
+                imagen: "r6.jpeg",
+                descripcion: "Este restaurante es especial para aquellos que les gusta comer variado y rapido por cuestiones de tiempo y sabor",
+                direccion: "Calle 10 # 43A-15 - Medellín-Colombia"
+            }
+            // Puedes agregar más restaurantes aquí
+        };
+
+        botonBuscarBtn.addEventListener('click', function() {
+            const nombreABuscar = nombreBusquedaInput.value.trim().toLowerCase();
+            let encontrado = false;
+
+            for (const key in restaurantesData) {
+                if (restaurantesData.hasOwnProperty(key)) {
+                    const restaurante = restaurantesData[key];
+                    if (restaurante.nombre.toLowerCase().includes(nombreABuscar)) {
+                        nombreResultadoH2.textContent = restaurante.nombre;
+                        imagenResultadoImg.src = restaurante.imagen;
+                        imagenResultadoImg.alt = restaurante.nombre;
+                        descripcionResultadoParrafo.textContent = restaurante.descripcion;
+                        direccionResultadoParrafo.textContent = `Dirección: ${restaurante.direccion}`;
+                        resultadoBusquedaDiv.style.display = 'block';
+                        mensajeNoEncontradoParrafo.style.display = 'none';
+                        encontrado = true;
+                        break;
+                    }
+                }
+            }
+
+            if (!encontrado) {
+                resultadoBusquedaDiv.style.display = 'none';
+                mensajeNoEncontradoParrafo.style.display = 'block';
+            }
+        });
+
+        // Permitir la búsqueda al presionar Enter
+        nombreBusquedaInput.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                botonBuscarBtn.click();
+            }
+        });
+
+        // Lógica para el botón "Limpiar Búsqueda"
+        limpiarBusquedaNombreBtn.addEventListener('click', function() {
+            nombreBusquedaInput.value = ''; // Limpiar el campo de búsqueda
+            resultadoBusquedaDiv.style.display = 'none'; // Ocultar el área de resultados
+            nombreResultadoH2.textContent = '';
+            imagenResultadoImg.src = '';
+            imagenResultadoImg.alt = '';
+            descripcionResultadoParrafo.textContent = '';
+            direccionResultadoParrafo.textContent = '';
+            mensajeNoEncontradoParrafo.style.display = 'none'; // Asegurarse de que el mensaje de no encontrado esté oculto
+        });
+    </script>
+</body>
+</html>
